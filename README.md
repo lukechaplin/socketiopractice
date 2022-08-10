@@ -21,3 +21,8 @@ Package versions used:
 └── socket.io@4.5.1
 
 NB: Material UI is out of date with latest react version - will need to force install to use, no issues so far with using it
+
+To run:
+
+Run following commands in both server and web folders: npm start - will spin up server and launch front end
+To test chat functionality open two browser windows (one in incognito mode) and you can have two chat windows that can send messages to each other and also record a chat log of all the messages sent so far
