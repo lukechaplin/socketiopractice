@@ -1,25 +1,86 @@
-import logo from './logo.svg';
-import './App.css';
+import TextField from "@material-ui/core/TextField";
+import React, { useState, useRef, useEffect } from "react";
+import io from "socket.io-client";
+import "./App.css";
+
+//socket will be listening on this - connection to our backend (like when you have a fetch request for an api call)
+//const socket = io.connect("http://localhost:3000");
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	//this will be one particular instance of a chat message from a certain name (person)
+	const [state, setState] = useState({ message: "", name: "" });
+	//This state will be the chat object - which will contain multiple names and messages in them
+	const [chat, setChat] = useState([]);
+
+	const socketRef = useRef();
+
+	useEffect(() => {
+		socketRef.current = io.connect("http://localhost:4000");
+		//the .on method listens to any event from the client and send it to the server
+		socketRef.current.on("message", ({ name, message }) => {
+			setChat([...chat, { name, message }]);
+		});
+		return () => socketRef.current.disconnect();
+	}, [chat]);
+
+	//will capture text we are typing and set message state equal to what we are typing and also captures name from name field in text input element
+	const onTextChange = (e) => {
+		setState({ ...state, [e.target.name]: e.target.value });
+	};
+
+	const onMessageSubmit = (e) => {
+		const { name, message } = state;
+		/*emits (broadcasts) message over the websocket to the server, in the brackets first 
+		argument in quotations is what you are calling the emit event
+        the so any .on method listening for it know this is the event to listen for and so something with */
+		socketRef.current.emit("message", { name, message });
+		// preventDefault stops page refreshing otherwise state would clear state
+		e.preventDefault();
+		//resets state back to empty string
+		setState({ message: "", name });
+	};
+
+	const renderChat = () => {
+		//will map over chat object and render all name and message states
+		return chat.map(({ name, message }, index) => (
+			<div key={index}>
+				<h3>
+					{name}: <span>{message}</span>
+				</h3>
+			</div>
+		));
+	};
+
+	return (
+		<div className="card">
+			<form onSubmit={onMessageSubmit}>
+				<h1>Messenger</h1>
+				<div className="name-field">
+					<TextField
+						name="name"
+						onChange={(e) => onTextChange(e)}
+						value={state.name}
+						label="Name"
+					/>
+				</div>
+				<div>
+					<TextField
+						name="message"
+						onChange={(e) => onTextChange(e)}
+						value={state.message}
+						id="outlined-multiline-static"
+						variant="outlined"
+						label="Message"
+					/>
+				</div>
+				<button>Send Message</button>
+			</form>
+			<div className="render-chat">
+				<h1>Chat Log</h1>
+				{renderChat()}
+			</div>
+		</div>
+	);
 }
 
 export default App;
