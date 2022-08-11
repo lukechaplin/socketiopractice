@@ -12,6 +12,7 @@ function App() {
 	/*saving an instance of the useRef() hook so can use socket.io library as appears cannot access it by default in react - so need to use 
 	useRef so can access it and use it in our app and create .on and .emit events and so they can run NB: if you do not use useRef()
 	and try accessing socket like this e.g. socket.on the app will not work as react has no access to the socket.io library 
+	useRef is making sure the library object you are accessing stays the same each render - so basically persisting state until you change it - is just a hook under the hood
 	*/
 
 	const socketRef = useRef();
