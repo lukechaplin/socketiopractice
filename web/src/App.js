@@ -12,6 +12,11 @@ function App() {
 	//This state will be the chat object - which will contain multiple names and messages in them
 	const [chat, setChat] = useState([]);
 
+	/*saving an instance of the useRef() so can use socket.io library as appears cannot access it by default in react - so need to use 
+	useRef so can access it and use it in our app and create .on and .emit events and so they can run NB: if you do not use useRef()
+	and try accessing socket like this e.g. socket.on the app will not work as react has no access to the socket.io library 
+	*/
+
 	const socketRef = useRef();
 
 	useEffect(() => {
