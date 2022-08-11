@@ -14,6 +14,8 @@ install using npm i socket.io-client
 
 Example github repo is for a simple webchat app, **NB has material UI installed for some additional front end elements**
 
+Also please note server and client front end need to run on separate ports otherwise app cannot run as both trying to use same port
+
 Package versions used:
 
 ├── express@4.18.1
