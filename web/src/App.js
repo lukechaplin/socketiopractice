@@ -36,7 +36,7 @@ function App() {
 		const { name, message } = state;
 		/*emits (broadcasts) message over the websocket to the server, in the brackets first 
 		argument in quotations is what you are calling the emit event
-        the so any .on method listening for it know this is the event to listen for and so something with */
+                so any .on method listening for it know this is the event to listen for and do something with */
 		socketRef.current.emit("message", { name, message });
 		// preventDefault stops page refreshing otherwise state would clear state
 		e.preventDefault();
