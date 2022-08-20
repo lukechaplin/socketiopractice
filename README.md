@@ -8,7 +8,7 @@ install socket io library for the server using npm i [socket.io](http://socket.i
 
 Also need to install express for setting up server and then write code for sever (could use express generator if being lazy)
 
-need to install socket io library in react app client side (front end) [socket.io](http://socket.io) library
+need to install socket.io library in react app client side (front end)
 
 install using npm i socket.io-client
 
