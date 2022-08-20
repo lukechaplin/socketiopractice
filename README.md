@@ -4,7 +4,7 @@
 
 Set up:
 
-install socket io library for the server using npm i [socket.io](http://socket.io)
+install socket.io library for the server using npm i socket.io
 
 Also need to install express for setting up server and then write code for sever (could use express generator if being lazy)
 
