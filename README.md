@@ -26,5 +26,5 @@ NB: Material UI is out of date with latest react version - will need to force in
 
 To run:
 
-Run following commands in both server and web folders: npm start - will spin up server and launch front end
+Run following commands in both server and web directories: npm start - will spin up server and launch front end
 To test chat functionality open two browser windows (one in incognito mode) and you can have two chat windows that can send messages to each other and also record a chat log of all the messages sent so far
